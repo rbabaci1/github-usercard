@@ -10,7 +10,7 @@ const getPromise = axios.get('https://api.github.com/users/rbabaci1');
 
    Skip to Step 3.
 */
-console.log(getPromise);
+getPromise.then((r) => console.log(r.data));
 
 /* Step 4: Pass the data received from Github into your function, 
    create a new component and add it to the DOM as a child of .cards
@@ -69,8 +69,33 @@ function createCard(dataObj) {
   cardInfo.classList.add('card-info');
   heading.classList.add('name');
   userName.classList.add('username');
-  
 
+/*
+  <div class="card">
+  <img src={image url of user} />
+  <div class="card-info">
+    <h3 class="name">{users name}</h3>
+    <p class="username">{users user name}</p>
+    <p>Location: {users location}</p>
+    <p>Profile:  
+      <a href={address to users github page}>{address to users github page}</a>
+    </p>
+    <p>Followers: {users followers count}</p>
+    <p>Following: {users following count}</p>
+    <p>Bio: {users bio}</p>
+  </div>
+</div>  
+*/  
+  image.src = dataObj.avatar_url;
+  heading.textContent = dataObj.name;
+  userName.textContent = dataObj.login;
+  location.textContent = `Location: ${dataObj.location}`;
+  userPageLink.textContent = 'Profile:';
+  link.href = dataObj.html_url;
+  link.textContent = 'address to users github page';
+  followers.textContent = `Followers: ${dataObj.followers}`;
+  following.textContent = `Following: ${dataObj.following}`;
+  bio.textContent = `Bio: ${dataObj.bio}`;
 
   return card;
 }
