@@ -48,7 +48,20 @@ const followersArray = [];
 
 */
 function createCard(dataObj) {
-  
+  let card = document.createElement('div');
+  let image = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let heading = document.createElement('h3');
+
+  let userName = document.createElement('p');
+  let location = document.createElement('p');
+  let userPageLink = document.createElement('p');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+
+
+  return card;
 }
 
 /* List of LS Instructors Github username's: 
