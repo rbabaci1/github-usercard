@@ -10,6 +10,7 @@ const getPromise = axios.get('https://api.github.com/users/rbabaci1');
 
    Skip to Step 3.
 */
+console.log(getPromise);
 
 /* Step 4: Pass the data received from Github into your function, 
    create a new component and add it to the DOM as a child of .cards
@@ -46,6 +47,9 @@ const followersArray = [];
 </div>
 
 */
+function createCard(dataObj) {
+  
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
