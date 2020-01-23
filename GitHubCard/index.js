@@ -64,7 +64,13 @@ function createCard(dataObj) {
   userPageLink.append(link);
   cardInfo.append(heading, userName, location, userPageLink, followers, following, bio);
   card.append(image, cardInfo);
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  heading.classList.add('name');
+  userName.classList.add('username');
   
+
 
   return card;
 }
