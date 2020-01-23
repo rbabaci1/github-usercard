@@ -55,15 +55,20 @@ function createCard(dataObj) {
 
   let userName = document.createElement('p');
   let location = document.createElement('p');
+  let link = document.createElement('a');
   let userPageLink = document.createElement('p');
   let followers = document.createElement('p');
   let following = document.createElement('p');
   let bio = document.createElement('p');
 
+  userPageLink.append(link);
+  cardInfo.append(heading, userName, location, userPageLink, followers, following, bio);
+  card.append(image, cardInfo);
+  
 
   return card;
 }
-
+createCard()
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
