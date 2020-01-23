@@ -1,7 +1,8 @@
 /* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
+   (replacing the palceholder with your Github name):
+   https://api.github.com/users/<your name>
 */
+const getPromise = axios.get('https://api.github.com/users/rbabaci1');
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -11,7 +12,7 @@
 */
 
 /* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
+   create a new component and add it to the DOM as a child of .cards
 */
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
