@@ -1,54 +1,46 @@
-/* Step 1: using axios, send a GET request to the following URL 
-   (replacing the palceholder with your Github name):
-   https://api.github.com/users/<your name>
-*/
-// const getPromise = axios.get('https://api.github.com/users/rbabaci1');
-  function getUserData(username) {
-    return axios.get(`https://api.github.com/users/${username}`)
-            .then(response => response.data)
-            .catch(error => console.error(error));
-  }
 
-  function getFollowersData(username) {
-    return axios.get(`https://api.github.com/users/${username}/followers`)
-            .then(response => response.data)
-            .catch(error => console.error(error));
-  }
-/* Step 2: Inspect and study the data coming back, this is YOUR 
-   github info! You will need to understand the structure of this 
-   data in order to use it to build your component function 
+function getUserData(username) {
+  return axios.get(`https://api.github.com/users/${username}`)
+          .then(response => response.data)
+          .catch(error => console.error(error));
+}
 
-   Skip to Step 3.
-*/
+function getFollowersData(username) {
+  return axios.get(`https://api.github.com/users/${username}/followers`)
+          .then(response => response.data)
+          .catch(error => console.error(error));
+}
 
 let cards = document.querySelector('.cards');
 
-getUserData('rbabaci1')
-  .then(userData => {
-    cards.append(createCard(userData));
-  })
-  .then()
-// getPromise
-//   .then(response => {
-//   // Step 4: Pass the data received from Github into your function, 
-//   // create a new component and add it to the DOM as a child of .cards
-//   cards.append(createCard(response.data));
-//     return response.data;
+let inputDiv = document.createElement('div');
+let input = document.createElement('input');
+let submitBtn = document.createElement('button');
 
-//   })  // send a get request to the user followers URL
-//   .then(userData => axios.get(userData.followers_url) )
-//   // if the promise is resolved, then loop over the data array
-//   .then(followersObj => followersObj.data.forEach(follower => {
-//     // send a get request to the api for every follower
-//     axios.get(`https://api.github.com/users/${follower.login}`)
-//       // if the promise is resolved, then pass the data to the create function
-//       .then(followerPromise => {
-//         // follower data object
-//         const followerData = followerPromise.data;
-//         cards.append(createCard(followerData));
-//       });
-//   }))
-//   .catch (error => console.error(error) );
+inputDiv.classList.add('input-container');
+input.classList.add('input');
+submitBtn.classList.add('submit-btn');
+
+submitBtn.textContent = 'Submit';
+
+inputDiv.append(input, submitBtn);
+
+const container = document.querySelector('.container');
+container.insertBefore(inputDiv, cards);
+
+submitBtn.addEventListener('click', () => {
+  let inputValue = input.value;
+
+  getUserData(inputValue)
+    .then(userData => {
+      cards.append( createCard(userData));
+    })
+    .catch(error => console.error(error));
+
+  input.value = '';
+});
+  
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
   Using DOM methods and properties, create a component that will return the following DOM element:
@@ -105,13 +97,3 @@ function createCard(dataObj) {
 
   return card;
 }
-
-
-let input = document.getElementById('test3')
-
-
-let button = document.getElementById('test2');
-button.addEventListener('click', () => {
-  console.log(input.value)
-  input.value = '';
-})

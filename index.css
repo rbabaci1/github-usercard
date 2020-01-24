@@ -122,3 +122,20 @@ body {
   font-style: italic;
   margin: 3px 0 10px;
 }
+
+.input-container {
+  width: 100%;
+  padding: 15px 0;
+}
+
+.input, .submit-btn {
+  font-size: 20px;
+}
+
+.input {
+  margin-right: 10px;
+}
+.submit-btn{
+  padding: 2px 5px;
+  cursor: pointer;
+}
