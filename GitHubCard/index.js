@@ -10,12 +10,17 @@ const getPromise = axios.get('https://api.github.com/users/rbabaci1');
 
    Skip to Step 3.
 */
-getPromise.then((r) => console.log(r.data));
+console.log(getPromise);
 
 /* Step 4: Pass the data received from Github into your function, 
    create a new component and add it to the DOM as a child of .cards
 */
-
+getPromise
+  .then( (response) => {
+    let cards = document.querySelector('.cards');
+    cards.append(createCard(response.data));
+  })
+  .catch (error => console.error(error));
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
