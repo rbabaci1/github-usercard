@@ -128,14 +128,14 @@ body {
   padding: 15px 0;
 }
 
-.input, .submit-btn {
+.input, .submit-btn, .followers-btn {
   font-size: 20px;
 }
 
 .input {
   margin-right: 10px;
 }
-.submit-btn{
+.submit-btn, .followers-btn {
   padding: 2px 5px;
   cursor: pointer;
 }
@@ -145,4 +145,8 @@ body {
   font-size: 28px;
   padding: 20px 0;
   background: #4ec2cb;
+}
+
+.followers-btn {
+  margin-left: 100px;
 }

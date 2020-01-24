@@ -16,30 +16,32 @@ let cards = document.querySelector('.cards');
 let inputDiv = document.createElement('div');
 let input = document.createElement('input');
 let submitBtn = document.createElement('button');
+let followersBtn = document.createElement('button');
 let heading = document.createElement('h1');
 
 inputDiv.classList.add('input-container');
 input.classList.add('input');
 submitBtn.classList.add('submit-btn');
+followersBtn.classList.add('followers-btn');
 heading.classList.add('input-heading');
 
 submitBtn.textContent = 'Submit';
+followersBtn.textContent = 'Show Followers';
 heading.textContent = '👇🏼 Insert your GitHub username 👇🏼'
 
-inputDiv.append(input, submitBtn);
+inputDiv.append(input, submitBtn, followersBtn);
 
 const container = document.querySelector('.container');
 container.insertBefore(inputDiv, cards);
 container.insertBefore(heading, inputDiv);
 
-let clickCount = 0;
-submitBtn.addEventListener('click', () => {
+submitBtn.addEventListener('click', (event) => {
   let inputValue = input.value;
 
   getUserData(inputValue)
     .then(userData => {
       cards.append( createCard(userData));
-      
+
       let cardNum = document.querySelectorAll('.card').length;
       let card = document.querySelector('.card');
       if (cardNum > 1) {
@@ -49,6 +51,7 @@ submitBtn.addEventListener('click', () => {
     .catch(error => console.error(error));
 
   input.value = '';
+  event.stopPropagation();
 });
   
 
