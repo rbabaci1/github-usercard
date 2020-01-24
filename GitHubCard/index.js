@@ -15,9 +15,10 @@ console.log(getPromise);
 /* Step 4: Pass the data received from Github into your function, 
    create a new component and add it to the DOM as a child of .cards
 */
+let cards = document.querySelector('.cards');
+
 getPromise
   .then( (response) => {
-    let cards = document.querySelector('.cards');
     cards.append(createCard(response.data));
   })
   .catch (error => console.error(error));
@@ -31,7 +32,15 @@ getPromise
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['karapeoples', 'marksayers46', 'HamidAzizy', 'tetondan', 'dustinmyers'];
+
+followersArray.forEach(userName => {
+  axios.get(`https://api.github.com/users/${userName}`)
+    .then( (response) => {
+      cards.append(createCard(response.data));
+    })
+    .catch( (error) => console.error(error));
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -76,7 +85,7 @@ function createCard(dataObj) {
   heading.textContent = dataObj.name;
   userName.textContent = dataObj.login;
   location.textContent = `Location: ${dataObj.location}`;
-  userPageLink.textContent = 'Profile:';
+  userPageLink.textContent = 'Profile: ';
   link.href = dataObj.html_url;
   link.textContent = 'address to users github page';
   followers.textContent = `Followers: ${dataObj.followers}`;
