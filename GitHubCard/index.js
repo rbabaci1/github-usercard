@@ -47,6 +47,40 @@ const followersArray = [];
 </div>
 
 */
+let object = {
+    login: "rbabaci1",
+    id: 44828927,
+    node_id: "MDQ6VXNlcjQ0ODI4OTI3",
+    avatar_url: "https://avatars2.githubusercontent.com/u/44828927?v=4",
+    gravatar_id: "",
+    url: "https://api.github.com/users/rbabaci1",
+    html_url: "https://github.com/rbabaci1",
+    followers_url: "https://api.github.com/users/rbabaci1/followers",
+    following_url: "https://api.github.com/users/rbabaci1/following{/other_user}",
+    gists_url: "https://api.github.com/users/rbabaci1/gists{/gist_id}",
+    starred_url: "https://api.github.com/users/rbabaci1/starred{/owner}{/repo}",
+    subscriptions_url: "https://api.github.com/users/rbabaci1/subscriptions",
+    organizations_url: "https://api.github.com/users/rbabaci1/orgs",
+    repos_url: "https://api.github.com/users/rbabaci1/repos",
+    events_url: "https://api.github.com/users/rbabaci1/events{/privacy}",
+    received_events_url: "https://api.github.com/users/rbabaci1/received_events",
+    type: "User",
+    site_admin: false,
+    name: "Rabah Babaci",
+    company: null,
+    blog: "rabah.live",
+    location: "San Francisco",
+    email: null,
+    hireable: true,
+    bio: "Hard-working immigrant, passionate about writing code and making things work. I'm currently a student @LambdaSchool.",
+    public_repos: 28,
+    public_gists: 0,
+    followers: 3,
+    following: 5,
+    created_at: "2018-11-07T06:12:41Z",
+    updated_at: "2020-01-23T03:11:15Z"
+}
+
 function createCard(dataObj) {
   let card = document.createElement('div');
   let image = document.createElement('img');
@@ -61,31 +95,11 @@ function createCard(dataObj) {
   let following = document.createElement('p');
   let bio = document.createElement('p');
 
-  userPageLink.append(link);
-  cardInfo.append(heading, userName, location, userPageLink, followers, following, bio);
-  card.append(image, cardInfo);
-
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   heading.classList.add('name');
   userName.classList.add('username');
-
-/*
-  <div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>  
-*/  
+ 
   image.src = dataObj.avatar_url;
   heading.textContent = dataObj.name;
   userName.textContent = dataObj.login;
@@ -97,9 +111,15 @@ function createCard(dataObj) {
   following.textContent = `Following: ${dataObj.following}`;
   bio.textContent = `Bio: ${dataObj.bio}`;
 
+  userPageLink.append(link);
+  cardInfo.append(heading, userName, location, userPageLink, followers, following, bio);
+  card.append(image, cardInfo);
+  
+  console.log(card);
+
   return card;
 }
-createCard()
+createCard(object)
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
