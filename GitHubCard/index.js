@@ -9,7 +9,11 @@
             .catch(error => console.error(error));
   }
 
-  
+  function getFollowersData(username) {
+    return axios.get(`https://api.github.com/users/${username}/followers`)
+            .then(response => response.data)
+            .catch(error => console.error(error));
+  }
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
