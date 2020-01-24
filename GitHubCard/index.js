@@ -32,12 +32,19 @@ const container = document.querySelector('.container');
 container.insertBefore(inputDiv, cards);
 container.insertBefore(heading, inputDiv);
 
+let clickCount = 0;
 submitBtn.addEventListener('click', () => {
   let inputValue = input.value;
 
   getUserData(inputValue)
     .then(userData => {
       cards.append( createCard(userData));
+      
+      let cardNum = document.querySelectorAll('.card').length;
+      let card = document.querySelector('.card');
+      if (cardNum > 1) {
+        cards.removeChild(card);
+      }
     })
     .catch(error => console.error(error));
 
