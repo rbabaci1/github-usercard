@@ -139,3 +139,10 @@ body {
   padding: 2px 5px;
   cursor: pointer;
 }
+
+.input-heading {
+  width: 100%;
+  font-size: 28px;
+  padding: 20px 0;
+  background: #4ec2cb;
+}

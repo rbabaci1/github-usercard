@@ -16,17 +16,21 @@ let cards = document.querySelector('.cards');
 let inputDiv = document.createElement('div');
 let input = document.createElement('input');
 let submitBtn = document.createElement('button');
+let heading = document.createElement('h1');
 
 inputDiv.classList.add('input-container');
 input.classList.add('input');
 submitBtn.classList.add('submit-btn');
+heading.classList.add('input-heading');
 
 submitBtn.textContent = 'Submit';
+heading.textContent = '👇🏼 Insert your GitHub username 👇🏼'
 
 inputDiv.append(input, submitBtn);
 
 const container = document.querySelector('.container');
 container.insertBefore(inputDiv, cards);
+container.insertBefore(heading, inputDiv);
 
 submitBtn.addEventListener('click', () => {
   let inputValue = input.value;
