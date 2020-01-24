@@ -12,38 +12,24 @@ const getPromise = axios.get('https://api.github.com/users/rbabaci1');
 */
 console.log(getPromise);
 
-/* Step 4: Pass the data received from Github into your function, 
-   create a new component and add it to the DOM as a child of .cards
-*/
 let cards = document.querySelector('.cards');
 
 getPromise
-  .then( (response) => {
-    cards.append(createCard(response.data));
-  })
-  .catch (error => console.error(error));
-/* Step 5: Now that you have your own card getting added to the DOM, either 
-          follow this link in your browser https://api.github.com/users/<Your github name>/followers 
-          , manually find some other users' github handles, or use the list found 
-          at the bottom of the page. Get at least 5 different Github usernames and add them as
-          Individual strings to the friendsArray below.
-          
-          Using that array, iterate over it, requesting data for each user, creating a new card for each
-          user, and adding that card to the DOM.
-*/
-
-const followersArray = ['karapeoples', 'marksayers46', 'HamidAzizy', 'tetondan', 'dustinmyers'];
-
-followersArray.forEach(userName => {
-  axios.get(`https://api.github.com/users/${userName}`)
-    .then( (response) => {
-      cards.append(createCard(response.data));
-    })
-    .catch( (error) => console.error(error));
-});
+  .then(response => {
+  // Step 4: Pass the data received from Github into your function, 
+  // create a new component and add it to the DOM as a child of .cards
+  cards.append(createCard(response.data));
+    return response.data;
+  })  /******   Stretch   *******/
+  .then(userData => axios.get(userData.followers_url) )
+  .then(followersObj => followersObj.data )
+  .then(followersDataArray => followersDataArray.forEach(follower => {
+    cards.append(createCard(follower));
+  }))
+  .catch (error => console.error(error) );
 
 /* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
+  Using DOM methods and properties, create a component that will return the following DOM element:
 
 <div class="card">
   <img src={image url of user} />
@@ -59,7 +45,6 @@ followersArray.forEach(userName => {
     <p>Bio: {users bio}</p>
   </div>
 </div>
-
 */
 
 function createCard(dataObj) {
@@ -80,7 +65,7 @@ function createCard(dataObj) {
   cardInfo.classList.add('card-info');
   heading.classList.add('name');
   userName.classList.add('username');
- 
+
   image.src = dataObj.avatar_url;
   heading.textContent = dataObj.name;
   userName.textContent = dataObj.login;
@@ -98,12 +83,3 @@ function createCard(dataObj) {
 
   return card;
 }
-
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
