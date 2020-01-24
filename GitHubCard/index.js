@@ -20,8 +20,8 @@ getPromise
   // create a new component and add it to the DOM as a child of .cards
   cards.append(createCard(response.data));
     return response.data;
-  })  /******   Stretch   *******/
-  // send a get request to the user followers URL
+
+  })  // send a get request to the user followers URL
   .then(userData => axios.get(userData.followers_url) )
   // if the promise is resolved, then loop over the data array
   .then(followersObj => followersObj.data.forEach(follower => {
@@ -39,20 +39,20 @@ getPromise
 /* Step 3: Create a function that accepts a single object as its only argument,
   Using DOM methods and properties, create a component that will return the following DOM element:
 
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
+  <div class="card">
+    <img src={image url of user} />
+    <div class="card-info">
+      <h3 class="name">{users name}</h3>
+      <p class="username">{users user name}</p>
+      <p>Location: {users location}</p>
+      <p>Profile:  
+        <a href={address to users github page}>{address to users github page}</a>
+      </p>
+      <p>Followers: {users followers count}</p>
+      <p>Following: {users following count}</p>
+      <p>Bio: {users bio}</p>
+    </div>
   </div>
-</div>
 */
 
 function createCard(dataObj) {
