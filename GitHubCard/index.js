@@ -21,10 +21,18 @@ getPromise
   cards.append(createCard(response.data));
     return response.data;
   })  /******   Stretch   *******/
+  // send a get request to the user followers URL
   .then(userData => axios.get(userData.followers_url) )
-  .then(followersObj => followersObj.data )
-  .then(followersDataArray => followersDataArray.forEach(follower => {
-    cards.append(createCard(follower));
+  // if the promise is resolved, loop over the data array
+  .then(followersObj => followersObj.data.forEach(follower => {
+    // send a get request to the api for every follower
+    axios.get(`https://api.github.com/users/${follower.login}`)
+      // if the promise is resolved, pass the data to the create function
+      .then(followerPromise => {
+        // follower data object
+        const followerData = followerPromise.data;
+        cards.append(createCard(followerData));
+      });
   }))
   .catch (error => console.error(error) );
 
