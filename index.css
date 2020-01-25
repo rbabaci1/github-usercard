@@ -135,20 +135,27 @@ body {
 .input {
   margin-right: 10px;
 }
+
 .submit-btn, .followers-btn {
   padding: 2px 5px;
   cursor: pointer;
   border-radius: 5px;
 }
 
-.input-heading {
+.input-heading, .followers-h1 {
   width: 100%;
   font-size: 28px;
-  padding: 20px 0;
-  background: #4ec2cb;
+  padding: 20px 10px;
+  background: #39acb3;
+  color: #141b7a;
+  margin-bottom: 10px;
 }
 
 .followers-btn {
-  margin-left: 280px;
+  margin-left: 150px;
   margin-bottom: 20px;
+}
+
+.main {
+  width: 100%;
 }

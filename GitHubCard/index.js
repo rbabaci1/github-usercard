@@ -18,39 +18,48 @@ let input = document.createElement('input');
 let submitBtn = document.createElement('button');
 let followersBtn = document.createElement('button');
 let heading = document.createElement('h1');
+let main = document.createElement('div');
 
 inputDiv.classList.add('input-container');
 input.classList.add('input');
 submitBtn.classList.add('submit-btn');
 followersBtn.classList.add('followers-btn');
 heading.classList.add('input-heading');
+main.classList.add('main');
 
 submitBtn.textContent = 'Show my profile';
-followersBtn.textContent = 'Show my Followers';
-heading.textContent = '👇🏼 Enter your GitHub username 👇🏼'
+followersBtn.textContent = 'Show Followers';
+heading.textContent = 'Enter your GitHub username 👇🏼'
 
 inputDiv.append(input, submitBtn);
+
+let followerH1 = document.createElement('h1');
+followerH1.textContent = 'Followers...';
+followerH1.classList.add('followers-h1');
 
 const container = document.querySelector('.container');
 container.insertBefore(inputDiv, cards);
 container.insertBefore(heading, inputDiv);
+container.insertBefore(main, cards);
 
-let inputVal = '';
-let clickCount = 0;
-
+// it's declared globally so getFollowersData will have access to the input value
+let inputToGetFollowers = '';
+// display user followers on click
 submitBtn.addEventListener('click', (event) => {
   let inputValue = input.value;
-  inputVal = input.value;
+  inputToGetFollowers = input.value;
+
+  inputDiv.append(followersBtn);
+  container.insertBefore(followerH1, cards);
 
   getUserData(inputValue)
     .then(userData => {
-      cards.append( createCard(userData));
-      cards.append(followersBtn);
+      main.append(createCard(userData));
 
-      let cardsCount = document.querySelectorAll('.card').length;
-      let card = document.querySelector('.card');
-      if (cardsCount > 1) {
-        cards.removeChild(card);
+      let mainCardCount = document.querySelectorAll('.main .card').length;
+      let mainFirstCard = document.querySelector('.main .card');
+      if (mainCardCount > 1) {
+        main.removeChild(mainFirstCard);
       }
     })
     .catch(error => console.error(error));
@@ -60,11 +69,11 @@ submitBtn.addEventListener('click', (event) => {
 });
 
 // display user followers on click
-let followersDiv = document.createElement('div');
-followersDiv.classList.add('followers-div');
-
 followersBtn.addEventListener('click', (event) => {
-  getFollowersData(inputVal)
+  let followersDiv = document.createElement('div');
+  followersDiv.classList.add('followers-div');
+
+  getFollowersData(inputToGetFollowers)
     .then(data => {
       data.forEach(follower => {
         getUserData(follower.login)
@@ -75,8 +84,13 @@ followersBtn.addEventListener('click', (event) => {
       })
     })
     .catch(error => console.error(error));
-  
+
   cards.append(followersDiv);
+  
+  if (cards.children.length > 1) {
+    cards.removeChild(cards.firstChild);
+  }
+  
   event.stopPropagation();
 });
 
