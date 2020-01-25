@@ -1,10 +1,10 @@
-
+// get user data function
 function getUserData(username) {
   return axios.get(`https://api.github.com/users/${username}`)
           .then(response => response.data)
           .catch(error => console.error(error));
 }
-
+// get user followers data function
 function getFollowersData(username) {
   return axios.get(`https://api.github.com/users/${username}/followers`)
           .then(response => response.data)
@@ -25,26 +25,31 @@ submitBtn.classList.add('submit-btn');
 followersBtn.classList.add('followers-btn');
 heading.classList.add('input-heading');
 
-submitBtn.textContent = 'Submit';
-followersBtn.textContent = 'Show Followers';
-heading.textContent = '👇🏼 Insert your GitHub username 👇🏼'
+submitBtn.textContent = 'Show my profile';
+followersBtn.textContent = 'Show my Followers';
+heading.textContent = '👇🏼 Enter your GitHub username 👇🏼'
 
-inputDiv.append(input, submitBtn, followersBtn);
+inputDiv.append(input, submitBtn);
 
 const container = document.querySelector('.container');
 container.insertBefore(inputDiv, cards);
 container.insertBefore(heading, inputDiv);
 
+let inputVal = '';
+let clickCount = 0;
+
 submitBtn.addEventListener('click', (event) => {
   let inputValue = input.value;
+  inputVal = input.value;
 
   getUserData(inputValue)
     .then(userData => {
       cards.append( createCard(userData));
+      cards.append(followersBtn);
 
-      let cardNum = document.querySelectorAll('.card').length;
+      let cardsCount = document.querySelectorAll('.card').length;
       let card = document.querySelector('.card');
-      if (cardNum > 1) {
+      if (cardsCount > 1) {
         cards.removeChild(card);
       }
     })
@@ -53,28 +58,29 @@ submitBtn.addEventListener('click', (event) => {
   input.value = '';
   event.stopPropagation();
 });
+
+// display user followers on click
+let followersDiv = document.createElement('div');
+followersDiv.classList.add('followers-div');
+
+followersBtn.addEventListener('click', (event) => {
+  getFollowersData(inputVal)
+    .then(data => {
+      data.forEach(follower => {
+        getUserData(follower.login)
+          .then(followerData => {
+            followersDiv.append( createCard(followerData));
+          })
+          .catch(error => console.error(error));
+      })
+    })
+    .catch(error => console.error(error));
   
+  cards.append(followersDiv);
+  event.stopPropagation();
+});
 
-
-/* Step 3: Create a function that accepts a single object as its only argument,
-  Using DOM methods and properties, create a component that will return the following DOM element:
-
-  <div class="card">
-    <img src={image url of user} />
-    <div class="card-info">
-      <h3 class="name">{users name}</h3>
-      <p class="username">{users user name}</p>
-      <p>Location: {users location}</p>
-      <p>Profile:  
-        <a href={address to users github page}>{address to users github page}</a>
-      </p>
-      <p>Followers: {users followers count}</p>
-      <p>Following: {users following count}</p>
-      <p>Bio: {users bio}</p>
-    </div>
-  </div>
-*/
-
+// card component creation function
 function createCard(dataObj) {
   let card = document.createElement('div');
   let image = document.createElement('img');

@@ -138,6 +138,7 @@ body {
 .submit-btn, .followers-btn {
   padding: 2px 5px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .input-heading {
@@ -148,5 +149,6 @@ body {
 }
 
 .followers-btn {
-  margin-left: 100px;
+  margin-left: 280px;
+  margin-bottom: 20px;
 }
