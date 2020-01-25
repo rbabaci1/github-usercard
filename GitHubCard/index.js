@@ -17,30 +17,32 @@ let inputDiv = document.createElement('div');
 let input = document.createElement('input');
 let submitBtn = document.createElement('button');
 let followersBtn = document.createElement('button');
-let heading = document.createElement('h1');
-let main = document.createElement('div');
+let topH1 = document.createElement('h1');
+let mainUser = document.createElement('div');
 
 inputDiv.classList.add('input-container');
 input.classList.add('input');
 submitBtn.classList.add('submit-btn');
 followersBtn.classList.add('followers-btn');
-heading.classList.add('input-heading');
-main.classList.add('main');
+topH1.classList.add('input-heading');
+mainUser.classList.add('main');
 
+input.type = 'text';
+input.placeholder = 'here...';
 submitBtn.textContent = 'Show my profile';
 followersBtn.textContent = 'Show Followers';
-heading.textContent = 'Enter your GitHub username 👇🏼'
+topH1.textContent = 'Enter your GitHub username 👇🏼'
 
 inputDiv.append(input, submitBtn);
 
-let followerH1 = document.createElement('h1');
-followerH1.textContent = 'Followers...';
-followerH1.classList.add('followers-h1');
+let middleH1 = document.createElement('h1');
+middleH1.textContent = 'Followers...';
+middleH1.classList.add('followers-h1');
 
 const container = document.querySelector('.container');
 container.insertBefore(inputDiv, cards);
-container.insertBefore(heading, inputDiv);
-container.insertBefore(main, cards);
+container.insertBefore(topH1, inputDiv);
+container.insertBefore(mainUser, cards);
 
 // it's declared globally so getFollowersData will have access to the input value
 let inputToGetFollowers = '';
@@ -50,16 +52,18 @@ submitBtn.addEventListener('click', (event) => {
   inputToGetFollowers = input.value;
 
   inputDiv.append(followersBtn);
-  container.insertBefore(followerH1, cards);
+  container.insertBefore(middleH1, cards);
 
+  // send a get request with the function
   getUserData(inputValue)
+    // if promise resolved, then used the returned data
     .then(userData => {
-      main.append(createCard(userData));
+      mainUser.append(createCard(userData));
 
-      let mainCardCount = document.querySelectorAll('.main .card').length;
+      let mainCards = document.querySelectorAll('.main .card');
       let mainFirstCard = document.querySelector('.main .card');
-      if (mainCardCount > 1) {
-        main.removeChild(mainFirstCard);
+      if (mainCards.length > 1) {
+        mainUser.removeChild(mainFirstCard);
       }
     })
     .catch(error => console.error(error));
@@ -75,8 +79,11 @@ followersBtn.addEventListener('click', (event) => {
 
   getFollowersData(inputToGetFollowers)
     .then(data => {
+      // create a card for each follower
       data.forEach(follower => {
+        // send a get request with the function
         getUserData(follower.login)
+        // if promise resolved, then used the returned data
           .then(followerData => {
             followersDiv.append( createCard(followerData));
           })
