@@ -1,7 +1,7 @@
 # Github User Cards
 ## Allows you to search GitHubusers and view their profiles, contributions and followers
 
-### Need to know:
+### Used Concepts:
 * JavaScript:
   * Creating DOM components with Javascript Functions.
   * Utilizing 3rd party libraries (axios)
