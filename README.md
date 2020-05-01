@@ -3,4 +3,4 @@ It allows you to search GitHub users and view their profiles, contributions and 
 information about their followers.
 
 ## Used Technologies:
-JavaScript, React, axios, Html/Css, Sass, Figma, Bootstrap Material UI.
+JavaScript, axios, Html/Css.
